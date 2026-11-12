@@ -1,6 +1,11 @@
-import { Outlet } from "react-router";
+import { Outlet, useSearchParams } from "react-router";
 import type { Route } from "./+types/layout.app";
 import { Sidebar } from "~/components/sidebar";
+import { PrototypeSwitcher } from "~/components/prototype-switcher";
+import {
+  notificationVariants,
+  useNotificationPrototype,
+} from "~/components/notifications-prototype";
 import { DevUI } from "~/components/dev-ui";
 import { Toaster } from "sonner";
 import { getCurrentUserId, getDevCountry } from "~/lib/session";
@@ -229,14 +234,13 @@ export default function AppLayout({ loaderData }: Route.ComponentProps) {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <Sidebar
+      <NotificationPrototypeShell
+        key={currentUser?.id ?? "anon"}
         currentUser={currentUser}
         recentCourses={recentCourses}
         isTeamAdmin={userIsTeamAdmin}
       />
-      <main className="flex-1 overflow-y-auto">
-        <Outlet />
-      </main>
+      <PrototypeSwitcher variants={notificationVariants} />
       <DevUI
         users={users}
         currentUser={currentUser}
@@ -246,5 +250,40 @@ export default function AppLayout({ loaderData }: Route.ComponentProps) {
       />
       <Toaster position="bottom-right" richColors closeButton />
     </div>
+  );
+}
+
+// PROTOTYPE: hosts the Notification feed variants (?variant=A|B|C). Never merge to main.
+function NotificationPrototypeShell({
+  currentUser,
+  recentCourses,
+  isTeamAdmin,
+}: {
+  currentUser: Route.ComponentProps["loaderData"]["currentUser"];
+  recentCourses: Route.ComponentProps["loaderData"]["recentCourses"];
+  isTeamAdmin: boolean;
+}) {
+  const [searchParams] = useSearchParams();
+  const variant = searchParams.get("variant") ?? "A";
+  const slots = useNotificationPrototype(
+    variant,
+    currentUser?.role ?? null,
+    isTeamAdmin
+  );
+  return (
+    <>
+      <Sidebar
+        currentUser={currentUser}
+        recentCourses={recentCourses}
+        isTeamAdmin={isTeamAdmin}
+        headerSlot={slots.headerSlot}
+        navSlot={slots.navSlot}
+      />
+      <main className="flex-1 overflow-y-auto">
+        {slots.mainTop}
+        <Outlet />
+      </main>
+      {slots.overlay}
+    </>
   );
 }
