@@ -2,8 +2,9 @@ import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { CourseImage } from "~/components/course-image";
+import type { FeaturedCourse } from "~/modules/landing-page/landing-page";
 
-type HeroCourse = { id: number; title: string; coverImageUrl: string | null };
+type HeroCourse = Pick<FeaturedCourse, "id" | "title" | "coverImageUrl">;
 
 export function LandingHero({
   courses,

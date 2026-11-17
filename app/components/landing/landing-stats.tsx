@@ -1,9 +1,8 @@
 import type { LucideIcon } from "lucide-react";
 import { BookOpen, GraduationCap, PlayCircle } from "lucide-react";
+import type { LandingPageStats } from "~/modules/landing-page/landing-page";
 
-type Stats = { courses: number; categories: number; lessons: number };
-
-export function LandingStats({ stats }: { stats: Stats }) {
+export function LandingStats({ stats }: { stats: LandingPageStats }) {
   return (
     <section className="border-y border-border bg-muted/50 py-12">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-6 sm:grid-cols-3">
