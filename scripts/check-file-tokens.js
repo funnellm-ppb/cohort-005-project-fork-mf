@@ -17,9 +17,11 @@ const IGNORED = [
 
 const isBinary = (contents) => contents.subarray(0, 8000).includes(0);
 
+const cwd = `${process.cwd().replaceAll("\\", "/")}/`;
+
 const oversized = process.argv
   .slice(2)
-  .map((file) => file.replaceAll("\\", "/").replace(`${process.cwd()}/`, ""))
+  .map((file) => file.replaceAll("\\", "/").replace(cwd, ""))
   .filter((file) => !IGNORED.some((pattern) => pattern.test(file)))
   .map((file) => ({ file, contents: readFileSync(file) }))
   .filter(({ contents }) => !isBinary(contents))
