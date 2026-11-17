@@ -51,8 +51,8 @@ export function LandingHero({
 
 const COVER_POSITIONS = [
   "left-0 top-0 z-10 -rotate-3",
-  "right-0 top-20 z-20 rotate-2",
-  "bottom-0 left-16 z-30 -rotate-1",
+  "right-0 top-20 z-30 rotate-2",
+  "bottom-0 left-16 z-20 -rotate-1",
 ];
 
 function HeroCovers({ courses }: { courses: HeroCourse[] }) {
