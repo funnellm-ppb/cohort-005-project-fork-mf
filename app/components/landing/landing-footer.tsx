@@ -1,16 +1,15 @@
 import { Link } from "react-router";
 
 export function LandingFooter({ signedIn }: { signedIn: boolean }) {
-  const links = signedIn
-    ? [
-        { to: "/courses", label: "Courses" },
-        { to: "/dashboard", label: "Dashboard" },
-      ]
-    : [
-        { to: "/courses", label: "Courses" },
-        { to: "/login", label: "Log In" },
-        { to: "/signup", label: "Sign Up" },
-      ];
+  const links = [
+    { to: "/courses", label: "Courses" },
+    ...(signedIn
+      ? [{ to: "/dashboard", label: "Dashboard" }]
+      : [
+          { to: "/login", label: "Log In" },
+          { to: "/signup", label: "Sign Up" },
+        ]),
+  ];
 
   return (
     <footer className="border-t border-border py-10">
