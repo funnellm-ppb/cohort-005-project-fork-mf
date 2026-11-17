@@ -66,6 +66,10 @@ function addCategory(slug: string) {
   db.insert(schema.categories).values({ name: slug, slug }).run();
 }
 
+function unpublishEveryCourse() {
+  db.update(schema.courses).set({ status: CourseStatus.Draft }).run();
+}
+
 const get = () => createLandingPage(db).get();
 
 describe("featured courses", () => {
@@ -108,7 +112,7 @@ describe("featured courses", () => {
   });
 
   it("are empty when nothing is published", async () => {
-    db.update(schema.courses).set({ status: CourseStatus.Draft }).run();
+    unpublishEveryCourse();
 
     expect((await get()).featuredCourses).toEqual([]);
   });
