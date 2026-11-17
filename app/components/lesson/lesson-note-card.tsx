@@ -5,12 +5,9 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { Textarea } from "~/components/ui/textarea";
 import { cn, formatRelativeTime } from "~/lib/utils";
-import { getNoteDraftStatus } from "./index";
+import { getNoteDraftStatus } from "~/modules/lesson-notes";
 
-/**
- * The Student's private Note on a Lesson. Shares the card, heading and
- * footer layout of the Questions & Discussion card so the two read as one page.
- */
+/** The Student's private Note on a Lesson. */
 export function LessonNoteCard({
   note,
 }: {

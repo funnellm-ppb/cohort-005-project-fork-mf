@@ -16,7 +16,7 @@ import { LessonProgressStatus } from "~/db/schema";
 import type { LessonLoaderData } from "./types";
 import { YouTubePlayer } from "~/components/youtube-player";
 import { CommentThread } from "~/components/comment-thread";
-import { LessonNoteCard } from "~/modules/lesson-notes/lesson-note-card";
+import { LessonNoteCard } from "~/components/lesson/lesson-note-card";
 import { CurriculumSidebar } from "./curriculum-sidebar";
 import { LessonBreadcrumb } from "./locked-lesson";
 import { QuizSection } from "./quiz-section";
