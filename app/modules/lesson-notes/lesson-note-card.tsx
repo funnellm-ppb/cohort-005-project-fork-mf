@@ -5,7 +5,7 @@ import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { Textarea } from "~/components/ui/textarea";
 import { cn, formatRelativeTime } from "~/lib/utils";
-import { noteDraftStatus } from "./lib/draft-status";
+import { getNoteDraftStatus } from "./index";
 
 /**
  * The Student's private Note on a Lesson. Shares the card, heading and
@@ -20,7 +20,7 @@ export function LessonNoteCard({
   const [draft, setDraft] = useState(note?.body ?? "");
   const isSaving = fetcher.state !== "idle";
   const error = fetcher.data?.error;
-  const status = noteDraftStatus(draft, note?.body ?? null);
+  const status = getNoteDraftStatus(draft, note?.body ?? null);
 
   return (
     <Card className="mb-8">
